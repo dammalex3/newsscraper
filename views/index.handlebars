@@ -1,0 +1,66 @@
+<head>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</head>
+
+<div class="jumbotron text-center border-bottom">
+    <h1 class="display-4">News is cool</h1>
+    <button id="scrape-button">Scrape</button>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12 border">
+            <ul>
+                {{#each articles}}
+                    <h4><a href="{{this.link}}">{{this.title}}</a></h4>
+                    {{!-- <h3>{{this.title}}</h3> --}}
+                    <p>{{this.summary}}</p>
+                    <button id="comment-button">Make a comment</button>
+                {{/each}}
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div>
+                        <h4>Comments</h4>
+                        
+                        <p class="border-bottom">Modal body text goes here.</p>
+                    </div>
+                    <div class="ui equal width form">
+                          <div class="form-group">
+                            <label for="exampleFormControlTextarea1">Write a new comment:</label>
+                            <textarea class="form-control" id="comment-form" rows="3"></textarea>
+                          </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="comment-submit" type="button" class="btn btn-outline-dark" data-dismiss="modal">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script type="text/javascript">
+
+
+    $("#scrape-button").on("click", function () {
+        alert("Scrape Complete");
+        $.ajax({ url: "/scrape", method: "GET" })
+        .then(function(scrapedData) {
+            console.log(scrapedData);
+        });
+    });
+
+    $("#comment-button").on("click", function () {
+        $("#loginModal").modal();
+    });
+
+</script>
