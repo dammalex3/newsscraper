@@ -63,6 +63,12 @@ app.get("/scrape", function(req, res) {
 app.get('/', function(req, res) {
   // Grab every document in the Articles collection
   db.Article.find({})
+    res.render("index");
+});
+
+app.get('/articles', function(req, res) {
+  // Grab every document in the Articles collection
+  db.Article.find({})
     .then(function(dbArticle) {
       console.log(dbArticle);
       var hbsObject = {
@@ -75,22 +81,6 @@ app.get('/', function(req, res) {
       res.json(err);
     });
 });
-
-// app.get('/articles', function(req, res) {
-//   // Grab every document in the Articles collection
-//   db.Article.find({})
-//     .then(function(dbArticle) {
-//       console.log(dbArticle);
-//       var hbsObject = {
-//         articles: dbArticle
-//       };
-//       res.render("index", hbsObject);
-//     })
-//     .catch(function(err) {
-//       // If an error occurred, send it to the client
-//       res.json(err);
-//     });
-// });
 
 // Route for grabbing a specific Article by id, populate it with it's note
 app.get("/articles/:id", function(req, res) {
