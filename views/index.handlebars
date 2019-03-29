@@ -18,7 +18,7 @@
                     <h4><a href="{{this.link}}">{{this.title}}</a></h4>
                     {{!-- <h3>{{this.title}}</h3> --}}
                     <p>{{this.summary}}</p>
-                    <button id="comment-button">Make a comment</button>
+                    <button id="comment-button" data-id="{{this.id}}">Make a comment</button>
                 {{/each}}
             </ul>
         </div>
@@ -32,8 +32,7 @@
                 <div class="modal-body">
                     <div>
                         <h4>Comments</h4>
-
-                        <p class="border-bottom">Modal body text goes here.</p>
+                            {{!-- <p class="border-bottom">Modal body text goes here.</p> --}}
                     </div>
                     <div class="ui equal width form">
                           <div class="form-group">

@@ -91,6 +91,10 @@ app.get("/articles/:id", function(req, res) {
     .then(function(dbArticle) {
       // If we were able to successfully find an Article with the given id, send it back to the client
       res.json(dbArticle);
+      var hbsObject = {
+        article: dbArticle
+      };
+      res.render("index", hbsObject);
     })
     .catch(function(err) {
       // If an error occurred, send it to the client
