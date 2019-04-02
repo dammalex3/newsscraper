@@ -32,11 +32,14 @@
                 <div class="modal-body">
                     <div>
                         <h4>Comments</h4>
-                            {{!-- <p class="border-bottom">Modal body text goes here.</p> --}}
+                        <div id="comments-div">
+
+                        </div>
+                        <br>
                     </div>
                     <div class="ui equal width form">
                           <div class="form-group">
-                            <label for="exampleFormControlTextarea1">Write a new comment:</label>
+                            <h4><label for="exampleFormControlTextarea1">Write a new comment:</label></h4>
                             <textarea class="form-control" id="comment-form" rows="3"></textarea>
                           </div>
                     </div>
@@ -59,7 +62,36 @@
     });
 
     $("#comment-button").on("click", function () {
+        $("#comment-form").empty();
         $("#loginModal").modal();
+        console.log($(this).attr("data-id"));
+        $("#comments-div").empty();
+        $.ajax({ url: "/articles/" + $(this).attr("data-id"), method: "GET" })
+        .then(function(res) {
+            console.log(JSON.stringify(res.comment));
+            for(var i=0; i<res.comment.length; i++) {
+                $.ajax({url: ""})
+                var comment = $("<div>");
+                comment.append(res.comment[i].body);
+                $("#comments-div").append(comment);
+            }
+        });
     });
+
+    $("#comment-submit").on("click", function () {
+        $.ajax({
+            method: "POST",
+            url: "/articles/" + $(this).attr("data-id"),
+            data: {
+            // Value taken from title input
+            title: "placeholder",
+            // Value taken from note textarea
+            body: $("#comment-form").val()
+            }
+        })
+        .then(function(data) {
+            console.log(data);
+        });
+    })
 
 </script>
